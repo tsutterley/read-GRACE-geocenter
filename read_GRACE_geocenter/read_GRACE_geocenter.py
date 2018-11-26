@@ -1,0 +1,115 @@
+#!/usr/bin/env python
+u"""
+read_GRACE_geocenter.py
+Written by Tyler Sutterley (11/2018)
+Reads geocenter file and extracts dates and spherical harmonic data
+
+INPUTS:
+	input_file: input datafile with geocenter coefficients
+
+OUTPUTS:
+	C10: Cosine degree one/order zero harmonics (Z-component)
+	C11: Cosine degree one/order one harmonics (X-component)
+	S11: Sine degree one/order one harmonics (Y-component)
+	time: mid-month date of range in year-decimal
+	JD: mid-month date of range as Julian day
+	month: GRACE month (Apr 2002 = 004)
+
+PYTHON DEPENDENCIES:
+	numpy: Scientific Computing Tools For Python (http://www.numpy.org)
+	PyYAML: YAML parser and emitter for Python (https://github.com/yaml/pyyaml)
+
+REFERENCES:
+	S. C. Swenson, D. P. Chambers, and J. Wahr, "Estimating geocenter variations
+		from a combination of GRACE and ocean model output",
+		Journal of Geophysical Research: Solid Earth, 113(B08410), (2008).
+		doi:10.1029/2007JB005338.
+
+UPDATE HISTORY:
+	Written 11/2018 for public release
+"""
+import os
+import re
+import yaml
+import numpy as np
+
+#-- PURPOSE: read geocenter data in mm water equivalent
+def read_GRACE_geocenter(input_file):
+	#-- read geocenter file and get contents
+	with open(os.path.expanduser(input_file),'r') as f:
+		file_contents = f.read().splitlines()
+	#-- number of lines contained in the file
+	file_lines = len(file_contents)
+
+	#-- counts the number of lines in the header
+	HEADER = False
+	count = 0
+	#-- Reading over header text
+	while (HEADER is False) and (count < file_lines):
+		#-- file line at count
+		line = file_contents[count]
+		#--if End of YAML Header is found: set HEADER flag
+		HEADER = bool(re.search("\# End of YAML header",line))
+		#-- add 1 to counter
+		count += 1
+
+	#-- verify HEADER flag was set
+	if not HEADER:
+		raise IOError('Data not found in file:\n\t{0}'.format(input_file))
+
+	#-- number of months within the file
+	n_mon = np.int(file_lines - count)
+	#-- output variables
+	grace_input = {}
+	grace_input['C10'] = np.zeros((n_mon))
+	grace_input['C11'] = np.zeros((n_mon))
+	grace_input['S11'] = np.zeros((n_mon))
+	grace_input['time'] = np.zeros((n_mon))
+	grace_input['JD'] = np.zeros((n_mon))
+	grace_input['month'] = np.zeros((n_mon), dtype=np.int)
+	#-- parse the YAML header
+	grace_input.update(yaml.load('\n'.join(file_contents[:count])))
+
+	#-- Average Density of the Earth [g/cm^3]
+	#-- stored in header:non-standard_attributes:mean_earth_density:value
+	rho_e = 5.517
+	#-- Average Radius of the Earth [cm]
+	#-- stored in header:non-standard_attributes:mean_earth_radius:value
+	rad_e = 6.371e8
+
+	#-- compile numerical expression operator
+	regex_pattern = '[-+]?(?:(?:\d*\.\d+)|(?:\d+\.?))(?:[Ee][+-]?\d+)?'
+	rx = re.compile(regex_pattern, re.VERBOSE)
+
+	#-- for every other line:
+	for t, line in enumerate(file_contents[count:]):
+		#-- find numerical instances in line including integers, exponents,
+		#-- decimal points and negatives
+		line_contents = rx.findall(line)
+
+		#-- extacting mid-date time and GRACE "month"
+		grace_input['time'][t] = np.float(line_contents[0])
+		grace_input['month'][t] = np.int(line_contents[4])
+
+		#-- calculate mid-date as Julian dates
+		#-- calendar year of date
+		year = np.floor(grace_input['time'][t])
+		#-- check if year is a leap year
+		days_per_year = 366.0 if ((year % 4) == 0) else 365.0
+		#-- calculation of day of the year
+		day_of_the_year = days_per_year*(grace_input['time'][t] % 1)
+		#-- calculate JD
+		grace_input['JD'][t] = np.float(367.0*year - np.floor(7.0*(year)/4.0) -
+			np.floor(3.0*(np.floor((year - 8.0/7.0)/100.0) + 1.0)/4.0) +
+			np.floor(275.0/9.0) + day_of_the_year + 1721028.5)
+
+		#-- extract geocenter coefficients:
+		#-- convert data from mm water equivalent (w.e.) into cm w.e.
+		#-- then convert into fully-normalized spherical harmonic coefficients
+		grace_input['C10'][t] = 0.1*np.float(line_contents[1])/(rho_e*rad_e)
+		grace_input['C11'][t] = 0.1*np.float(line_contents[2])/(rho_e*rad_e)
+		grace_input['S11'][t] = 0.1*np.float(line_contents[3])/(rho_e*rad_e)
+
+	#-- return the geocenter data, GRACE date (mid-month in decimal and in JD),
+	#-- and the equivalent GRACE "month"
+	return grace_input
