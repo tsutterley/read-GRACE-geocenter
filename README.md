@@ -38,6 +38,11 @@ from a combination of GRACE and ocean model output", *Journal of Geophysical
 Research: Solid Earth*, 113(B08410), (2008).
 [doi:10.1029/2007JB005338](https://doi.org/10.1029/2007JB005338)
 
+G. A, J. Wahr, and S. Zhong, "Computations of the viscoelastic response of a
+3-D compressible Earth to surface loading: an application to Glacial Isostatic
+Adjustment in Antarctica and Canada", *Geophysical Journal International*,
+192(2), 557-572, (2013). [doi:10.1093/gji/ggs030](https://doi.org/10.1093/gji/ggs030)
+
 #### Download
 The program homepage is:   
 https://github.com/tsutterley/read-GRACE-geocenter   

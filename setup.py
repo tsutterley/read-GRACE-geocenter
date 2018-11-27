@@ -17,5 +17,5 @@ setup(
 	],
 	keywords='GRACE time-variable gravity, geocenter, degree one harmonics',
 	packages=find_packages(),
-	install_requires=['numpy'],
+	install_requires=['numpy','pyyaml'],
 )

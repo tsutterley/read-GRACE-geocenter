@@ -23,13 +23,13 @@ REFERENCES:
 	S. C. Swenson, D. P. Chambers, and J. Wahr, "Estimating geocenter variations
 		from a combination of GRACE and ocean model output",
 		Journal of Geophysical Research: Solid Earth, 113(B08410), (2008).
-		doi:10.1029/2007JB005338.
+		doi:10.1029/2007JB005338
 
 	G. A, J. Wahr, and S. Zhong, "Computations of the viscoelastic response of a
 		3-D compressible Earth to surface loading: an application to Glacial
 		Isostatic Adjustment in Antarctica and Canada",
 		Geophysical Journal International, 192(2), 557-572, (2013).
-		https://10.1093/gji/ggs030
+		doi:10.1093/gji/ggs030
 
 UPDATE HISTORY:
 	Written 11/2018 for public release
