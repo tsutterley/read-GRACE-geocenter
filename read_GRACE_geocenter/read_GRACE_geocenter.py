@@ -13,7 +13,7 @@ OUTPUTS:
 	S11: Sine degree one/order one harmonics (Y-component)
 	time: mid-month date of range in year-decimal
 	JD: mid-month date of range as Julian day
-	month: GRACE month (Apr 2002 = 004)
+	month: GRACE month (months starting 2002-01: 2002-04 = 004)
 
 PYTHON DEPENDENCIES:
 	numpy: Scientific Computing Tools For Python (http://www.numpy.org)
@@ -24,6 +24,12 @@ REFERENCES:
 		from a combination of GRACE and ocean model output",
 		Journal of Geophysical Research: Solid Earth, 113(B08410), (2008).
 		doi:10.1029/2007JB005338.
+
+	G. A, J. Wahr, and S. Zhong, "Computations of the viscoelastic response of a
+		3-D compressible Earth to surface loading: an application to Glacial
+		Isostatic Adjustment in Antarctica and Canada",
+		Geophysical Journal International, 192(2), 557-572, (2013).
+		https://10.1093/gji/ggs030
 
 UPDATE HISTORY:
 	Written 11/2018 for public release
@@ -70,13 +76,6 @@ def read_GRACE_geocenter(input_file):
 	#-- parse the YAML header
 	grace_input.update(yaml.load('\n'.join(file_contents[:count])))
 
-	#-- Average Density of the Earth [g/cm^3]
-	#-- stored in header:non-standard_attributes:mean_earth_density:value
-	rho_e = 5.517
-	#-- Average Radius of the Earth [cm]
-	#-- stored in header:non-standard_attributes:mean_earth_radius:value
-	rad_e = 6.371e8
-
 	#-- compile numerical expression operator
 	regex_pattern = '[-+]?(?:(?:\d*\.\d+)|(?:\d+\.?))(?:[Ee][+-]?\d+)?'
 	rx = re.compile(regex_pattern, re.VERBOSE)
@@ -103,12 +102,10 @@ def read_GRACE_geocenter(input_file):
 			np.floor(3.0*(np.floor((year - 8.0/7.0)/100.0) + 1.0)/4.0) +
 			np.floor(275.0/9.0) + day_of_the_year + 1721028.5)
 
-		#-- extract geocenter coefficients:
-		#-- convert data from mm water equivalent (w.e.) into cm w.e.
-		#-- then convert into fully-normalized spherical harmonic coefficients
-		grace_input['C10'][t] = 0.1*np.float(line_contents[1])/(rho_e*rad_e)
-		grace_input['C11'][t] = 0.1*np.float(line_contents[2])/(rho_e*rad_e)
-		grace_input['S11'][t] = 0.1*np.float(line_contents[3])/(rho_e*rad_e)
+		#-- extract fully-normalized degree one spherical harmonics
+		grace_input['C10'][t] = np.float(line_contents[1])
+		grace_input['C11'][t] = np.float(line_contents[2])
+		grace_input['S11'][t] = np.float(line_contents[3])
 
 	#-- return the geocenter data, GRACE date (mid-month in decimal and in JD),
 	#-- and the equivalent GRACE "month"
