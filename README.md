@@ -14,7 +14,7 @@ harmonic coefficients from the NASA/DLR Gravity Recovery and Climate Experiment
 #### Calling Sequence
 ```
 from read_GRACE_geocenter import read_GRACE_geocenter
-CSR_input = read_GRACE_geocenter('CSR_RL06_MPIOM_SLF_iter_mmwe.txt')
+CSR_input = read_GRACE_geocenter('CSR_RL06_MPIOM_SLF_iter.txt')
 ```
 #### Inputs
  - full path to input geocenter file  
