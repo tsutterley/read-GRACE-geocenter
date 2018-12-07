@@ -31,6 +31,12 @@ REFERENCES:
 		Geophysical Journal International, 192(2), 557-572, (2013).
 		doi:10.1093/gji/ggs030
 
+	E. Fagiolini, F. Flechtner, M. Horwath, H. Dobslaw, "Correction of
+		inconsistencies in ECMWF's operational analysis data during
+		de-aliasing of GRACE gravity models",
+		Geophysical Journal International, 202(3), 2150, (2015).
+		doi:10.1093/gji/ggv276
+
 UPDATE HISTORY:
 	Written 11/2018 for public release
 """
