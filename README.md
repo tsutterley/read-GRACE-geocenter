@@ -6,6 +6,7 @@ harmonic data from the NASA/DLR Gravity Recovery and Climate Experiment
 (GRACE) and the NASA/GFZ Gravity Recovery and Climate Experiment Follow-On
 (GRACE-FO) missions  
 
+- [Figshare Data Repository](https://doi.org/10.6084/m9.figshare.7388540)  
 - [NASA GRACE mission site](http://www.nasa.gov/mission_pages/Grace/index.html)  
 - [JPL GRACE Tellus site](http://grace.jpl.nasa.gov/)  
 - [JPL GRACE-FO site](https://gracefo.jpl.nasa.gov/)
@@ -66,6 +67,9 @@ CSR_input = read_GRACE_geocenter('CSR_RL06_MPIOM_SLF_iter.txt')
  (GAC) have been restored.  
 
 #### References
+T. C. Sutterley, and I. Velicogna, "Improved estimates of geocenter variability
+from time-variable gravity and ocean model outputs", *Remote Sensing*, (2019).  
+
 S. C. Swenson, D. P. Chambers, and J. Wahr, "Estimating geocenter variations
 from a combination of GRACE and ocean model output", *Journal of Geophysical
 Research: Solid Earth*, 113(B08410), (2008).
