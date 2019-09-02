@@ -79,8 +79,9 @@ def read_GRACE_geocenter(input_file):
 	grace_input['time'] = np.zeros((n_mon))
 	grace_input['JD'] = np.zeros((n_mon))
 	grace_input['month'] = np.zeros((n_mon), dtype=np.int)
-	#-- parse the YAML header
-	grace_input.update(yaml.load('\n'.join(file_contents[:count])))
+	#-- parse the YAML header (specifying yaml loader)
+	grace_input.update(yaml.load('\n'.join(file_contents[:count]),
+		Loader=yaml.BaseLoader))
 
 	#-- compile numerical expression operator
 	regex_pattern = '[-+]?(?:(?:\d*\.\d+)|(?:\d+\.?))(?:[Ee][+-]?\d+)?'

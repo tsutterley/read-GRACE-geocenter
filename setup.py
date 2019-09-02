@@ -5,7 +5,7 @@ setup(
 	description='Reads geocenter coefficients from Sutterley et al. (2019)',
 	url='https://github.com/tsutterley/read-GRACE-geocenter',
 	author='Tyler Sutterley',
-	author_email='tyler.c.sutterley@nasa.gov',
+	author_email='tsutterl@uw.edu',
 	license='MIT',
 	classifiers=[
 		'Development Status :: 3 - Alpha',
