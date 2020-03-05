@@ -6,6 +6,8 @@ harmonic data from the NASA/DLR Gravity Recovery and Climate Experiment
 (GRACE) and the NASA/GFZ Gravity Recovery and Climate Experiment Follow-On
 (GRACE-FO) missions  
 
+![geocenter-time-series](https://tsutterley.github.io/references/Sutterley-2019bx.png)
+
 - [Figshare Data Repository](https://doi.org/10.6084/m9.figshare.7388540)  
 - [NASA GRACE mission site](http://www.nasa.gov/mission_pages/Grace/index.html)  
 - [JPL GRACE Tellus site](http://grace.jpl.nasa.gov/)  
@@ -33,42 +35,43 @@ CSR_input = read_GRACE_geocenter('CSR_RL06_MPIOM_SLF_iter.txt')
  - [numpy: Scientific Computing Tools For Python](http://www.numpy.org)  
  - [PyYAML: YAML parser and emitter for Python](https://github.com/yaml/pyyaml)  
 
- #### Data Notes
- *Release-5 Geocenter Coefficients:*  
- Derived from GRACE mission measurements and OMCT ocean model outputs.
- Represents the largest-scale variability of hydrologic, cryospheric, and solid
- Earth processes as well as the atmospheric and oceanic processes not captured
- in the GRACE RL05 de-aliasing product.  Glacial Isostatic Adjustment (GIA)
- estimates from A et al. (2013) have been restored.  ECMWF corrections from
- Fagiolini et al. (2015) have been restored.  
+#### Data Notes
 
- *Release-5 Geocenter Coefficients with Atmospheric and Oceanic Variability:*  
- Derived from GRACE mission measurements and OMCT ocean model outputs.
- Represents the largest-scale variability of atmospheric, oceanic, hydrologic,
- cryospheric, and solid Earth processes.  Glacial Isostatic Adjustment (GIA)
- estimates from A et al. (2013) have been restored.  Monthly estimates of
- atmospheric and oceanic variability from the GRACE RL05 de-aliasing product
- (GAC) have been restored.  
+*Release-5 Geocenter Coefficients:*  
+Derived from GRACE mission measurements and OMCT ocean model outputs.
+Represents the largest-scale variability of hydrologic, cryospheric, and solid
+Earth processes as well as the atmospheric and oceanic processes not captured
+in the GRACE RL05 de-aliasing product.  Glacial Isostatic Adjustment (GIA)
+estimates from A et al. (2013) have been restored.  ECMWF corrections from
+Fagiolini et al. (2015) have been restored.  
 
- *Release-6 Geocenter Coefficients:*  
- Derived from GRACE mission measurements and MPIOM ocean model outputs.
- Represents the largest-scale variability of hydrologic, cryospheric, and solid
- Earth processes as well as the atmospheric and oceanic processes not captured
- in the GRACE RL06 de-aliasing product.  Glacial Isostatic Adjustment (GIA)
- estimates from A et al. (2013) have been restored.  
+*Release-5 Geocenter Coefficients with Atmospheric and Oceanic Variability:*  
+Derived from GRACE mission measurements and OMCT ocean model outputs.
+Represents the largest-scale variability of atmospheric, oceanic, hydrologic,
+cryospheric, and solid Earth processes.  Glacial Isostatic Adjustment (GIA)
+estimates from A et al. (2013) have been restored.  Monthly estimates of
+atmospheric and oceanic variability from the GRACE RL05 de-aliasing product
+(GAC) have been restored.  
 
- *Release-6 Geocenter Coefficients with Atmospheric and Oceanic Variability:*  
- Derived from GRACE mission measurements and MPIOM ocean model outputs.
- Represents the largest-scale variability of atmospheric, oceanic, hydrologic,
- cryospheric, and solid Earth processes.  Glacial Isostatic Adjustment (GIA)
- estimates from A et al. (2013) have been restored.  Monthly estimates of
- atmospheric and oceanic variability from the GRACE RL06 de-aliasing product
- (GAC) have been restored.  
+*Release-6 Geocenter Coefficients:*  
+Derived from GRACE mission measurements and MPIOM ocean model outputs.
+Represents the largest-scale variability of hydrologic, cryospheric, and solid
+Earth processes as well as the atmospheric and oceanic processes not captured
+in the GRACE RL06 de-aliasing product.  Glacial Isostatic Adjustment (GIA)
+estimates from A et al. (2013) have been restored.  
+
+*Release-6 Geocenter Coefficients with Atmospheric and Oceanic Variability:*  
+Derived from GRACE mission measurements and MPIOM ocean model outputs.
+Represents the largest-scale variability of atmospheric, oceanic, hydrologic,
+cryospheric, and solid Earth processes.  Glacial Isostatic Adjustment (GIA)
+estimates from A et al. (2013) have been restored.  Monthly estimates of
+atmospheric and oceanic variability from the GRACE RL06 de-aliasing product
+(GAC) have been restored.  
 
 #### References
 T. C. Sutterley, and I. Velicogna, "Improved estimates of geocenter variability
-from time-variable gravity and ocean model outputs", *Remote Sensing*, (2019). 
-[doi:10.3390/rs11182108](https://doi.org/10.3390/rs11182108)  
+from time-variable gravity and ocean model outputs", *Remote Sensing*,
+11(18), 2108, (2019). [doi:10.3390/rs11182108](https://doi.org/10.3390/rs11182108)  
 
 S. C. Swenson, D. P. Chambers, and J. Wahr, "Estimating geocenter variations
 from a combination of GRACE and ocean model output", *Journal of Geophysical
