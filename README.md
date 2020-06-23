@@ -32,7 +32,7 @@ CSR_input = read_GRACE_geocenter('CSR_RL06_MPIOM_SLF_iter.txt')
  - `header`: text header of the geocenter file (will parse YAML headers)  
 
 #### Dependencies
- - [numpy: Scientific Computing Tools For Python](http://www.numpy.org)  
+ - [numpy: Scientific Computing Tools For Python](https://numpy.org)  
  - [PyYAML: YAML parser and emitter for Python](https://github.com/yaml/pyyaml)  
 
 #### Data Notes
@@ -96,3 +96,6 @@ https://github.com/tsutterley/read-GRACE-geocenter/archive/master.zip
 
 #### Disclaimer  
 This program is not sponsored or maintained by the Universities Space Research Association (USRA) or NASA.  It is provided here for your convenience but _with no guarantees whatsoever_.  
+
+#### License
+The content of this project is licensed under the [Creative Commons Attribution 4.0 Attribution license](https://creativecommons.org/licenses/by/4.0/) and the source code is licensed under the [MIT license](LICENSE).  

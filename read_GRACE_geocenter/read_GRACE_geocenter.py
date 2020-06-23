@@ -16,7 +16,7 @@ OUTPUTS:
     month: GRACE month (months starting 2002-01: 2002-04 = 004)
 
 PYTHON DEPENDENCIES:
-    numpy: Scientific Computing Tools For Python (http://www.numpy.org)
+    numpy: Scientific Computing Tools For Python (https://numpy.org)
     PyYAML: YAML parser and emitter for Python (https://github.com/yaml/pyyaml)
 
 REFERENCES:
