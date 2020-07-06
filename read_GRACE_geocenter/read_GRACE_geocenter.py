@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 u"""
 read_GRACE_geocenter.py
-Written by Tyler Sutterley (11/2018)
+Written by Tyler Sutterley (07/2020)
 Reads geocenter file and extracts dates and spherical harmonic data
 
 INPUTS:
@@ -13,31 +13,27 @@ OUTPUTS:
     S11: Sine degree one/order one harmonics (Y-component)
     time: mid-month date of range in year-decimal
     JD: mid-month date of range as Julian day
-    month: GRACE month (months starting 2002-01: 2002-04 = 004)
+    month: GRACE/GRACE-FO month (months starting 2002-01: 2002-04 = 004)
 
 PYTHON DEPENDENCIES:
-    numpy: Scientific Computing Tools For Python (https://numpy.org)
-    PyYAML: YAML parser and emitter for Python (https://github.com/yaml/pyyaml)
+    numpy: Scientific Computing Tools For Python
+        http://www.numpy.org
+    PyYAML: YAML parser and emitter for Python
+        https://github.com/yaml/pyyaml
 
 REFERENCES:
+    T. C. Sutterley, and I. Velicogna, "Improved estimates of geocenter
+        variability from time-variable gravity and ocean model outputs,
+        Remote Sensing, 11(18), 2108, (2019).
+        doi:10.3390/rs11182108
+
     S. C. Swenson, D. P. Chambers, and J. Wahr, "Estimating geocenter variations
         from a combination of GRACE and ocean model output",
         Journal of Geophysical Research: Solid Earth, 113(B08410), (2008).
         doi:10.1029/2007JB005338
 
-    G. A, J. Wahr, and S. Zhong, "Computations of the viscoelastic response of a
-        3-D compressible Earth to surface loading: an application to Glacial
-        Isostatic Adjustment in Antarctica and Canada",
-        Geophysical Journal International, 192(2), 557-572, (2013).
-        doi:10.1093/gji/ggs030
-
-    E. Fagiolini, F. Flechtner, M. Horwath, H. Dobslaw, "Correction of
-        inconsistencies in ECMWF's operational analysis data during
-        de-aliasing of GRACE gravity models",
-        Geophysical Journal International, 202(3), 2150, (2015).
-        doi:10.1093/gji/ggv276
-
 UPDATE HISTORY:
+    Updated 07/2020: added function docstrings
     Written 11/2018 for public release
 """
 import os
@@ -45,8 +41,26 @@ import re
 import yaml
 import numpy as np
 
-#-- PURPOSE: read geocenter data in mm water equivalent
+#-- PURPOSE: read degree one spherical harmonic data
 def read_GRACE_geocenter(input_file):
+    """
+    Reads monthly geocenter files computed using
+    GRACE/GRACE-FO measurements and ocean models
+
+    Arguments
+    ---------
+    input_file: input datafile with geocenter coefficients
+
+    Returns
+    -------
+    C10: Cosine degree one/order zero spherical harmonics
+    C11: Cosine degree one/order one spherical harmonics
+    S11: Sine degree one/order one spherical harmonics
+    time: mid-month date of range in year-decimal
+    JD: mid-month date of range as Julian day
+    month: GRACE/GRACE-FO month
+    """
+
     #-- read geocenter file and get contents
     with open(os.path.expanduser(input_file),'r') as f:
         file_contents = f.read().splitlines()
