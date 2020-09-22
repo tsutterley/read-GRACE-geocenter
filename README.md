@@ -97,7 +97,7 @@ Gravity and Ocean Model Outputs", (2019).
 The program homepage is:  
 https://github.com/tsutterley/read-GRACE-geocenter  
 A zip archive of the latest version is available directly at:  
-https://github.com/tsutterley/read-GRACE-geocenter/archive/master.zip  
+https://github.com/tsutterley/read-GRACE-geocenter/archive/main.zip  
 
 #### Disclaimer
 This program is not sponsored or maintained by the Universities Space Research
