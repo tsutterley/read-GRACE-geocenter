@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 u"""
 read_GRACE_geocenter.py
-Written by Tyler Sutterley (07/2020)
+Written by Tyler Sutterley (11/2021)
 Reads geocenter file and extracts dates and spherical harmonic data
 
 INPUTS:
@@ -33,6 +33,7 @@ REFERENCES:
         doi:10.1029/2007JB005338
 
 UPDATE HISTORY:
+    Updated 11/2021: define int/float precision to prevent deprecation warning
     Updated 07/2020: added function docstrings
     Written 11/2018 for public release
 """
@@ -84,7 +85,7 @@ def read_GRACE_geocenter(input_file):
         raise IOError('Data not found in file:\n\t{0}'.format(input_file))
 
     #-- number of months within the file
-    n_mon = np.int(file_lines - count)
+    n_mon = np.int64(file_lines - count)
     #-- output variables
     grace_input = {}
     grace_input['C10'] = np.zeros((n_mon))
@@ -92,7 +93,7 @@ def read_GRACE_geocenter(input_file):
     grace_input['S11'] = np.zeros((n_mon))
     grace_input['time'] = np.zeros((n_mon))
     grace_input['JD'] = np.zeros((n_mon))
-    grace_input['month'] = np.zeros((n_mon), dtype=np.int)
+    grace_input['month'] = np.zeros((n_mon), dtype=np.int64)
     #-- parse the YAML header (specifying yaml loader)
     grace_input.update(yaml.load('\n'.join(file_contents[:count]),
         Loader=yaml.BaseLoader))
@@ -108,8 +109,8 @@ def read_GRACE_geocenter(input_file):
         line_contents = rx.findall(line)
 
         #-- extacting mid-date time and GRACE "month"
-        grace_input['time'][t] = np.float(line_contents[0])
-        grace_input['month'][t] = np.int(line_contents[4])
+        grace_input['time'][t] = np.float64(line_contents[0])
+        grace_input['month'][t] = np.int64(line_contents[4])
 
         #-- calculate mid-date as Julian dates
         #-- calendar year of date
@@ -119,14 +120,14 @@ def read_GRACE_geocenter(input_file):
         #-- calculation of day of the year
         day_of_the_year = days_per_year*(grace_input['time'][t] % 1)
         #-- calculate JD
-        grace_input['JD'][t] = np.float(367.0*year - np.floor(7.0*(year)/4.0) -
+        grace_input['JD'][t] = np.float64(367.0*year - np.floor(7.0*(year)/4.0) -
             np.floor(3.0*(np.floor((year - 8.0/7.0)/100.0) + 1.0)/4.0) +
             np.floor(275.0/9.0) + day_of_the_year + 1721028.5)
 
         #-- extract fully-normalized degree one spherical harmonics
-        grace_input['C10'][t] = np.float(line_contents[1])
-        grace_input['C11'][t] = np.float(line_contents[2])
-        grace_input['S11'][t] = np.float(line_contents[3])
+        grace_input['C10'][t] = np.float64(line_contents[1])
+        grace_input['C11'][t] = np.float64(line_contents[2])
+        grace_input['S11'][t] = np.float64(line_contents[3])
 
     #-- return the geocenter data, GRACE date (mid-month in decimal and in JD),
     #-- and the equivalent GRACE "month"

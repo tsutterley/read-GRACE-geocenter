@@ -4,9 +4,13 @@ from setuptools import setup, find_packages
 with open("README.md", "r") as fh:
     long_description = fh.read()
 
+# get version
+with open('version.txt') as fh:
+    version = fh.read()
+
 setup(
     name='read-GRACE-geocenter',
-    version='1.0.0.0',
+    version=version,
     description='Reads geocenter coefficients from Sutterley et al. (2019)',
     long_description=long_description,
     long_description_content_type="text/markdown",
