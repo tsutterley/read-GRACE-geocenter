@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 u"""
 read_GRACE_geocenter.py
-Written by Tyler Sutterley (11/2021)
+Written by Tyler Sutterley (12/2021)
 Reads geocenter file and extracts dates and spherical harmonic data
 
 INPUTS:
@@ -33,12 +33,14 @@ REFERENCES:
         doi:10.1029/2007JB005338
 
 UPDATE HISTORY:
+    Updated 12/2021: use YAML header to extract data column indices
     Updated 11/2021: define int/float precision to prevent deprecation warning
     Updated 07/2020: added function docstrings
     Written 11/2018 for public release
 """
 import os
 import re
+import copy
 import yaml
 import numpy as np
 
@@ -86,11 +88,8 @@ def read_GRACE_geocenter(input_file):
 
     #-- number of months within the file
     n_mon = np.int64(file_lines - count)
-    #-- output variables
+    #-- output time variables
     grace_input = {}
-    grace_input['C10'] = np.zeros((n_mon))
-    grace_input['C11'] = np.zeros((n_mon))
-    grace_input['S11'] = np.zeros((n_mon))
     grace_input['time'] = np.zeros((n_mon))
     grace_input['JD'] = np.zeros((n_mon))
     grace_input['month'] = np.zeros((n_mon), dtype=np.int64)
@@ -102,15 +101,26 @@ def read_GRACE_geocenter(input_file):
     regex_pattern = '[-+]?(?:(?:\d*\.\d+)|(?:\d+\.?))(?:[Ee][+-]?\d+)?'
     rx = re.compile(regex_pattern, re.VERBOSE)
 
+    #-- get names and columns of input variables
+    variables = copy.copy(grace_input['header']['variables'])
+    variables.pop('mid-epoch_time')
+    variables.pop('month')
+    columns = {}
+    #-- for each output data variable
+    for key in variables:
+        grace_input[key] = np.zeros((n_mon))
+        comment_text, = rx.findall(variables[key]['comment'])
+        columns[key] = int(comment_text) - 1
+
     #-- for every other line:
     for t, line in enumerate(file_contents[count:]):
         #-- find numerical instances in line including integers, exponents,
         #-- decimal points and negatives
         line_contents = rx.findall(line)
 
-        #-- extacting mid-date time and GRACE "month"
+        #-- extacting mid-date time and GRACE/GRACE-FO "month"
         grace_input['time'][t] = np.float64(line_contents[0])
-        grace_input['month'][t] = np.int64(line_contents[4])
+        grace_input['month'][t] = np.int64(line_contents[-1])
 
         #-- calculate mid-date as Julian dates
         #-- calendar year of date
@@ -125,9 +135,8 @@ def read_GRACE_geocenter(input_file):
             np.floor(275.0/9.0) + day_of_the_year + 1721028.5)
 
         #-- extract fully-normalized degree one spherical harmonics
-        grace_input['C10'][t] = np.float64(line_contents[1])
-        grace_input['C11'][t] = np.float64(line_contents[2])
-        grace_input['S11'][t] = np.float64(line_contents[3])
+        for key,val in columns.items():
+            grace_input[key][t] = np.float64(line_contents[val])
 
     #-- return the geocenter data, GRACE date (mid-month in decimal and in JD),
     #-- and the equivalent GRACE "month"
