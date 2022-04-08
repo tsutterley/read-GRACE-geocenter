@@ -3,6 +3,7 @@ read-GRACE-geocenter
 
 [![Language](https://img.shields.io/badge/python-v3.8-green.svg)](https://www.python.org/)
 [![License](https://img.shields.io/github/license/tsutterley/read-GRACE-geocenter)](https://github.com/tsutterley/geoid-toolkit/blob/main/LICENSE)
+[![Documentation Status](https://readthedocs.org/projects/read-grace-geocenter/badge/?version=latest)](https://read-grace-harmonics.readthedocs.io/projects/read-grace-geocenter/en/latest/?badge=latest)
 [![DOI](https://zenodo.org/badge/159227455.svg)](https://zenodo.org/badge/latestdoi/159227455)
 
 Reads geocenter data from Sutterley et al. (2019) for updating Level-2 spherical
