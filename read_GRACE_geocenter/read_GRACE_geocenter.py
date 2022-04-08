@@ -51,8 +51,8 @@ def read_GRACE_geocenter(input_file):
     Reads monthly geocenter files computed using GRACE/GRACE-FO
     measurements and ocean models [Swenson2008]_ [Sutterley2019]_
 
-    Arguments
-    ---------
+    Parameters
+    ----------
     input_file: str
         input datafile with geocenter coefficients
 
