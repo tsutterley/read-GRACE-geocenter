@@ -104,6 +104,7 @@ A zip archive of the latest version is available directly at:
 https://github.com/tsutterley/read-GRACE-geocenter/archive/main.zip  
 
 #### Disclaimer
+This project contains work and contributions from the [scientific community](CONTRIBUTORS.rst)
 This program is not sponsored or maintained by the Universities Space Research
 Association (USRA) or NASA.  It is provided here for your convenience but
 _with no guarantees whatsoever_.
