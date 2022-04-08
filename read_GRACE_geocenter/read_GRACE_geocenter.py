@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 u"""
 read_GRACE_geocenter.py
-Written by Tyler Sutterley (12/2021)
+Written by Tyler Sutterley (04/2022)
 Reads geocenter file and extracts dates and spherical harmonic data
 
 INPUTS:
@@ -33,6 +33,7 @@ REFERENCES:
         doi:10.1029/2007JB005338
 
 UPDATE HISTORY:
+    Updated 04/2022: updated docstrings to numpy documentation format
     Updated 12/2021: use YAML header to extract data column indices
     Updated 11/2021: define int/float precision to prevent deprecation warning
     Updated 07/2020: added function docstrings
@@ -47,21 +48,40 @@ import numpy as np
 #-- PURPOSE: read degree one spherical harmonic data
 def read_GRACE_geocenter(input_file):
     """
-    Reads monthly geocenter files computed using
-    GRACE/GRACE-FO measurements and ocean models
+    Reads monthly geocenter files computed using GRACE/GRACE-FO
+    measurements and ocean models [Swenson2008]_ [Sutterley2019]_
 
     Arguments
     ---------
-    input_file: input datafile with geocenter coefficients
+    input_file: str
+        input datafile with geocenter coefficients
 
     Returns
     -------
-    C10: Cosine degree one/order zero spherical harmonics
-    C11: Cosine degree one/order one spherical harmonics
-    S11: Sine degree one/order one spherical harmonics
-    time: mid-month date of range in year-decimal
-    JD: mid-month date of range as Julian day
-    month: GRACE/GRACE-FO month
+    C10: float
+        Cosine degree one/order zero spherical harmonics
+    C11: float
+        Cosine degree one/order one spherical harmonics
+    S11: float
+        Sine degree one/order one spherical harmonics
+    time: float
+        mid-month date of range in year-decimal
+    JD: float
+        mid-month date of range as Julian day
+    month: int
+        GRACE/GRACE-FO month
+
+    References
+    ----------
+    .. [Swenson2008] S. Swenson, D. Chambers, and J. Wahr,
+        "Estimating geocenter variations from a combination of GRACE
+        and ocean model output", *Journal of Geophysical Research*,
+        113(B08410), (2008).
+        `doi: 10.1029/2007JB005338 <https://doi.org/10.1029/2007JB005338>`_
+    .. [Sutterley2019] T. C. Sutterley, and I. Velicogna, "Improved
+        estimates of geocenter variability from time-variable gravity
+        and ocean model outputs", *Remote Sensing*, 11(18), 2108, (2019).
+        `doi: 10.3390/rs11182108 <https://doi.org/10.3390/rs11182108>`_
     """
 
     #-- read geocenter file and get contents
