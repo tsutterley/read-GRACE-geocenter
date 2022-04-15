@@ -34,6 +34,8 @@ REFERENCES:
 
 UPDATE HISTORY:
     Updated 04/2022: updated docstrings to numpy documentation format
+        include utf-8 encoding in reads to be windows compliant
+        check if geocenter data file is present in file-system
     Updated 12/2021: use YAML header to extract data column indices
     Updated 11/2021: define int/float precision to prevent deprecation warning
     Updated 07/2020: added function docstrings
@@ -84,8 +86,12 @@ def read_GRACE_geocenter(input_file):
         `doi: 10.3390/rs11182108 <https://doi.org/10.3390/rs11182108>`_
     """
 
+    #-- check that geocenter file is present in file system
+    input_file = os.path.expanduser(input_file)
+    if not os.access(input_file, os.F_OK):
+        raise FileNotFoundError('{0} not found'.format(input_file))
     #-- read geocenter file and get contents
-    with open(os.path.expanduser(input_file),'r') as f:
+    with open(input_file, mode='r', encoding='utf8') as f:
         file_contents = f.read().splitlines()
     #-- number of lines contained in the file
     file_lines = len(file_contents)
