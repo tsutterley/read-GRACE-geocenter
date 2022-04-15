@@ -1,16 +1,16 @@
 from setuptools import setup, find_packages
 
 # get long_description from README.md
-with open("README.md", "r") as fh:
+with open("README.md", mode='r', encoding='utf8') as fh:
     long_description = fh.read()
 long_description_content_type = "text/markdown"
 
 # get install requirements
-with open('requirements.txt') as fh:
+with open('requirements.txt', encoding='utf8') as fh:
     install_requires = [line.split().pop(0) for line in fh.read().splitlines()]
 
 # get version
-with open('version.txt') as fh:
+with open('version.txt', encoding='utf8') as fh:
     version = fh.read()
 
 setup(
